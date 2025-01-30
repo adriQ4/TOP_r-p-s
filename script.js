@@ -1,4 +1,4 @@
-// Get Computer Choice
+// selects
 
 function getComputerChoice() {
   let number = Math.floor(Math.random() * 3 + 1);
@@ -11,7 +11,6 @@ function getComputerChoice() {
   }
 }
 
-// Get Human Choice
 function getHumanChoice() {
   let choice;
   let result;
@@ -24,5 +23,46 @@ function getHumanChoice() {
   return result;
 }
 
-// const humanScore = 0;
-// const computerScore = 0;
+// SCORES
+let humanScore = 0;
+let computerScore = 0;
+
+// PLAY GAME ONE TIME
+
+function playRound(humanChoice, computerChoice) {
+  if (humanChoice === computerChoice) {
+    return console.log(`${humanChoice} VS ${computerChoice} = DRAW`);
+  } else if (humanChoice === "ROCK" && computerChoice === "PAPER") {
+    computerScore++;
+    return console.log(
+      `COMPUTER WIN: ${computerChoice} WRAPS THE ${humanChoice}`
+    );
+  } else if (humanChoice === "ROCK" && computerChoice === "SCISSORS") {
+    humanScore++;
+    return console.log(`PLAYER WIN: ${humanChoice} BROKE THE 
+    ${computerChoice}`);
+  } else if (humanChoice === "PAPER" && computerChoice === "SCISSORS") {
+    computerScore++;
+    return console.log(
+      `COMPUTER WIN: ${computerChoice} CUT THE ${humanChoice}`
+    );
+  } else if (humanChoice === "PAPER" && computerChoice === "ROCK") {
+    humanScore++;
+    return console.log(
+      `PLAYER WIN: ${humanChoice} WRAPS THE ${computerChoice}`
+    );
+  } else if (humanChoice === "SCISSORS" && computerChoice === "PAPER") {
+    humanScore++;
+    return console.log(`PLAYER WIN: ${humanChoice} CUT THE ${computerChoice}`);
+  } else if (humanChoice === "SCISSORS" && computerChoice === "ROCK") {
+    computerScore++;
+    return console.log(
+      `COMPUTER WIN: ${computerChoice} BROKE THE ${humanChoice}`
+    );
+  }
+}
+
+const humanSelection = getHumanChoice();
+const computerSelection = getComputerChoice();
+
+playRound(humanSelection, computerSelection);
