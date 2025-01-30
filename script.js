@@ -12,34 +12,17 @@ function getComputerChoice() {
 }
 
 // Get Human Choice
-const getHumanChoice = (choice) => choice;
-
-//Scores
-
-const humanScore = 0;
-const computerScore = 0;
-
-//Game
-
-function playRound(humanChoice, computerChoice) {
-  if (humanChoice === computerChoice) {
-    return console.log("DRAW");
-  } else if (humanChoice === "rock" && computerChoice === "scissors") {
-    return console.log("PLAYER WIN: Rock win to Scissors.");
-    humanScore++;
-  } else if (humanChoice === "rock" && computerChoice === "paper") {
-    return console.log("COMPUTER WIN: Rock win to Paper");
-    computerScore++;
-  } else if (humanChoice === "paper" && computerChoice === "rock") {
-    return console.log("PLAYER WIN: Paper win to Rock");
-    humanScore++;
-  } else if (humanChoice && computerChoice === "scissors") {
-    return console.log("COMPUTER WIN: Scissors win to Paper");
-    computerScore++;
-  } else {
-    return "hola mundo";
-  }
+function getHumanChoice() {
+  let choice;
+  let result;
+  do {
+    choice = prompt("Choice: Rock, Paper or Scissors");
+    if (choice) {
+      result = choice.toLocaleUpperCase();
+    }
+  } while (!["ROCK", "PAPER", "SCISSORS"].includes(result));
+  return result;
 }
-const humanSelection = getHumanChoice("scissors");
-const computerSelection = getComputerChoice();
-console.log(playRound(humanSelection, computerSelection));
+
+// const humanScore = 0;
+// const computerScore = 0;
