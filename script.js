@@ -12,57 +12,60 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-  let choice;
   let result;
   do {
-    choice = prompt("Choice: Rock, Paper or Scissors");
-    if (choice) {
-      result = choice.toLocaleUpperCase();
+    let choice = prompt("Choice: Rock, Paper or Scissors");
+    if (!choice) {
+      alert("You need to eneter choice!");
+      continue;
     }
+    result = choice.toUpperCase();
   } while (!["ROCK", "PAPER", "SCISSORS"].includes(result));
   return result;
 }
 
-// SCORES
+// SCORE:
+
 let humanScore = 0;
 let computerScore = 0;
 
 // PLAY GAME ONE TIME
-
 function playRound(humanChoice, computerChoice) {
   if (humanChoice === computerChoice) {
-    return console.log(`${humanChoice} VS ${computerChoice} = DRAW`);
-  } else if (humanChoice === "ROCK" && computerChoice === "PAPER") {
-    computerScore++;
-    return console.log(
-      `COMPUTER WIN: ${computerChoice} WRAPS THE ${humanChoice}`
-    );
-  } else if (humanChoice === "ROCK" && computerChoice === "SCISSORS") {
+    console.log(`DRAW: ${humanChoice} VS ${computerChoice}`);
+  } else if (
+    (humanChoice === "ROCK" && computerChoice === "SCISSORS") ||
+    (humanChoice === "PAPER" && computerChoice === "ROCK") ||
+    (humanChoice === "SCISSORS" && computerChoice === "PAPER")
+  ) {
     humanScore++;
-    return console.log(`PLAYER WIN: ${humanChoice} BROKE THE 
-    ${computerChoice}`);
-  } else if (humanChoice === "PAPER" && computerChoice === "SCISSORS") {
+    console.log(`PLAYER WINS: ${humanChoice} beats ${computerChoice}`);
+  } else {
     computerScore++;
-    return console.log(
-      `COMPUTER WIN: ${computerChoice} CUT THE ${humanChoice}`
+    console.log(`COMPUTER WINS: ${computerChoice} beats ${humanChoice}`);
+  }
+  console.log(`SCORE: PLAYER [${humanScore}] - [${computerScore}] COMPUTER`);
+}
+
+function playGame() {
+  for (let i = 0; i < 5; i++) {
+    console.log(`Round ${i + 1}`);
+    let humanChoice = getHumanChoice();
+    let computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
+  }
+  console.log("FINAL SCORE:");
+  console.log(`PLAYER: ${humanScore} - COMPUTER: ${computerScore}`);
+
+  if (humanScore > computerScore) {
+    console.log(
+      `SCORE: PLAYER: ${humanScore} - ${computerScore} COMPUTER \n🏆 PLAYER WINS THE GAME!`
     );
-  } else if (humanChoice === "PAPER" && computerChoice === "ROCK") {
-    humanScore++;
-    return console.log(
-      `PLAYER WIN: ${humanChoice} WRAPS THE ${computerChoice}`
-    );
-  } else if (humanChoice === "SCISSORS" && computerChoice === "PAPER") {
-    humanScore++;
-    return console.log(`PLAYER WIN: ${humanChoice} CUT THE ${computerChoice}`);
-  } else if (humanChoice === "SCISSORS" && computerChoice === "ROCK") {
-    computerScore++;
-    return console.log(
-      `COMPUTER WIN: ${computerChoice} BROKE THE ${humanChoice}`
+  } else {
+    console.log(
+      `SCORE: PLAYER: ${humanScore} - ${computerScore} COMPUTER \n)🤖 COMPUTER WINS THE GAME!`
     );
   }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
+playGame();
