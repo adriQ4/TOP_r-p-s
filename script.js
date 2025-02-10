@@ -44,28 +44,57 @@ function playRound(humanChoice, computerChoice) {
     computerScore++;
     console.log(`COMPUTER WINS: ${computerChoice} beats ${humanChoice}`);
   }
-  console.log(`SCORE: PLAYER [${humanScore}] - [${computerScore}] COMPUTER`);
+  scoreDiv.textContent = `SCORE: PLAYER [${humanScore}] - [${computerScore}] COMPUTER`;
 }
 
-function playGame() {
-  for (let i = 0; i < 5; i++) {
-    console.log(`Round ${i + 1}`);
-    let humanChoice = getHumanChoice();
-    let computerChoice = getComputerChoice();
-    playRound(humanChoice, computerChoice);
-  }
-  console.log("FINAL SCORE:");
-  console.log(`PLAYER: ${humanScore} - COMPUTER: ${computerScore}`);
+// function playGame() {
+//   for (let i = 0; i < 5; i++) {
+//     console.log(`Round ${i + 1}`);
+//     let humanChoice = getHumanChoice();
+//     let computerChoice = getComputerChoice();
+//     playRound(humanChoice, computerChoice);
+//   }
+//   console.log("FINAL SCORE:");
+//   console.log(`PLAYER: ${humanScore} - COMPUTER: ${computerScore}`);
 
-  if (humanScore > computerScore) {
-    console.log(
-      `SCORE: PLAYER: ${humanScore} - ${computerScore} COMPUTER \n🏆 PLAYER WINS THE GAME!`
-    );
-  } else {
-    console.log(
-      `SCORE: PLAYER: ${humanScore} - ${computerScore} COMPUTER \n)🤖 COMPUTER WINS THE GAME!`
-    );
-  }
-}
+//   if (humanScore > computerScore) {
+//     console.log(
+//       `SCORE: PLAYER: ${humanScore} - ${computerScore} COMPUTER \n🏆 PLAYER WINS THE GAME!`
+//     );
+//   } else {
+//     console.log(
+//       `SCORE: PLAYER: ${humanScore} - ${computerScore} COMPUTER \n)🤖 COMPUTER WINS THE GAME!`
+//     );
+//   }
+// }
 
-playGame();
+// playGame();
+
+//* Creating Buttons
+
+const btnRock = document.createElement("button");
+btnRock.textContent = "ROCK";
+btnRock.value = "rock";
+const btnPaper = document.createElement("button");
+btnPaper.textContent = "PAPER";
+btnPaper.value = "paper";
+const btnScissors = document.createElement("button");
+btnScissors.textContent = "SCISSORS";
+btnScissors.value = "scissors";
+
+const buttonBox = document.createElement("section");
+buttonBox.appendChild(btnRock);
+buttonBox.appendChild(btnPaper);
+buttonBox.appendChild(btnScissors);
+document.body.appendChild(buttonBox);
+
+const scoreDiv = document.createElement("div");
+scoreDiv.textContent = "SCORE:";
+document.body.appendChild(scoreDiv);
+
+buttonBox.addEventListener("click", (e) => {
+  if (e.target.tagName === "BUTTON") {
+    console.log(e.target.textContent);
+    playRound("ROCK", computerChoice());
+  }
+});
