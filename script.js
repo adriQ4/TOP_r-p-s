@@ -32,17 +32,17 @@ let computerScore = 0;
 // PLAY GAME ONE TIME
 function playRound(humanChoice, computerChoice) {
   if (humanChoice === computerChoice) {
-    console.log(`DRAW: ${humanChoice} VS ${computerChoice}`);
+    alert(`DRAW: ${humanChoice} VS ${computerChoice}`);
   } else if (
     (humanChoice === "ROCK" && computerChoice === "SCISSORS") ||
     (humanChoice === "PAPER" && computerChoice === "ROCK") ||
     (humanChoice === "SCISSORS" && computerChoice === "PAPER")
   ) {
     humanScore++;
-    console.log(`PLAYER WINS: ${humanChoice} beats ${computerChoice}`);
+    alert(`PLAYER WINS: ${humanChoice} beats ${computerChoice}`);
   } else {
     computerScore++;
-    console.log(`COMPUTER WINS: ${computerChoice} beats ${humanChoice}`);
+    alert(`COMPUTER WINS: ${computerChoice} beats ${humanChoice}`);
   }
   scoreDiv.textContent = `SCORE: PLAYER [${humanScore}] - [${computerScore}] COMPUTER`;
 }
@@ -74,13 +74,17 @@ function playRound(humanChoice, computerChoice) {
 
 const btnRock = document.createElement("button");
 btnRock.textContent = "ROCK";
-btnRock.value = "rock";
+btnRock.value = "ROCK";
+
 const btnPaper = document.createElement("button");
 btnPaper.textContent = "PAPER";
-btnPaper.value = "paper";
+btnPaper.value = "PAPER";
+
 const btnScissors = document.createElement("button");
 btnScissors.textContent = "SCISSORS";
-btnScissors.value = "scissors";
+btnScissors.value = "SCISSORS";
+
+//* Creating Buttons section
 
 const buttonBox = document.createElement("section");
 buttonBox.appendChild(btnRock);
@@ -88,13 +92,26 @@ buttonBox.appendChild(btnPaper);
 buttonBox.appendChild(btnScissors);
 document.body.appendChild(buttonBox);
 
+//* Creating SCORE
 const scoreDiv = document.createElement("div");
 scoreDiv.textContent = "SCORE:";
 document.body.appendChild(scoreDiv);
 
 buttonBox.addEventListener("click", (e) => {
   if (e.target.tagName === "BUTTON") {
-    console.log(e.target.textContent);
-    playRound("ROCK", computerChoice());
+    const humanChoice = e.target.value;
+    const computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
+    if (humanScore === 5) {
+      alert("YOU WIN");
+      humanScore = 0;
+      computerScore = 0;
+    }
+    if (computerScore === 5) {
+      alert("COMPUTER WIN");
+      humanScore = 0;
+      computerScore = 0;
+      scoreDiv.textContent = `SCORE: PLAYER [${humanScore}] - [${computerScore}] COMPUTER`;
+    }
   }
 });
